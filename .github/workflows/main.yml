@@ -55,7 +55,7 @@ jobs:
             # Boolean (true/false) that will indicate whether the deploy is a checkonly deploy or not. If is a checkonly, on force:mdapi:deploy command the option -c will be appended
             checkonly: true
             # Path on the current repository to one or more package.xml that represents the packages to be deployed. Based on this files the metadata package will be created and deployed in the order specified
-            manifest_path: ../../../manifest/package.xml
+            manifest_path: manifest/package.xml
             # Specifies which tests are run as part of a deployment. Valid values are: NoTestRun, RunSpecifiedTests, RunLocalTests, RunAllTestsInOrg
             deploy_testlevel: RunLocalTests
             # Wait time for deployment to finish in minutes. Default is 60
