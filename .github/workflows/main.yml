@@ -13,10 +13,6 @@ jobs:
           sfdx-auth-url: force://PlatformCLI::5Aep861wfm9ssIBS_.fn6UOXlmEa4gCMxAkaT1KAWW5Dnk19N9tNBqdhKZS7MIDXIzCenttYrhlBLnsIRVn9bNy@resilient-shark-47mjo0-dev-ed.my.salesforce.com
 
       - name: sfdx push to org
-        run: sfdx force:org:list
-
-      - name: ChangeDirectory
-        run: cd ..
-        
-      - name: sfdx push to org
-        run: sfdx force:source:push --targetusername gael.cangy@resilient-shark-47mjo0.com
+        run: |
+        sfdx force:org:list
+        sfdx force:source:push --targetusername gael.cangy@resilient-shark-47mjo0.com
