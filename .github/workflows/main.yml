@@ -17,5 +17,11 @@ jobs:
       - name: sfdx push to org
         run: |
           cd ..
+          pwd
+          var=$(pwd)
+          basename $(pwd)
+          mydir="$(basename $PWD)"
           echo "$mydir"
+          #sfdx force:org:list
+          sfdx force:source:push --targetusername gael.cangy@resilient-shark-47mjo0.com --json
           
