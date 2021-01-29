@@ -11,6 +11,9 @@ jobs:
       - uses: sfdx-actions/setup-sfdx@v1
         with:
           sfdx-auth-url: https://resilient-shark-47mjo0-dev-ed.lightning.force.com/
-      - name: sfdx-test-run
-        run: sfdx force:source:push --targetusername gael.cangy@resilient-shark-47mjo0.com
+
+      - name: sfdx push to org
         run: sfdx force:org:list
+
+      - name: sfdx push to org
+        run: sfdx force:source:push --targetusername gael.cangy@resilient-shark-47mjo0.com
