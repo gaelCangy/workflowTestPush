@@ -14,5 +14,5 @@ jobs:
 
       - name: sfdx push to org
         run: |
-        sfdx force:org:list
-        sfdx force:source:push --targetusername gael.cangy@resilient-shark-47mjo0.com
+          sfdx force:org:list
+          sfdx force:source:push --targetusername gael.cangy@resilient-shark-47mjo0.com
