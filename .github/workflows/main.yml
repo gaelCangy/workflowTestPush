@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@master
+
       - uses: sfdx-actions/setup-sfdx@v1
         with:
           sfdx-auth-url: force://PlatformCLI::5Aep861wfm9ssIBS_.fn6UOXlmEa4gCMxAkaT1KAWW5Dnk19N9tNBqdhKZS7MIDXIzCenttYrhlBLnsIRVn9bNy@resilient-shark-47mjo0-dev-ed.my.salesforce.com
