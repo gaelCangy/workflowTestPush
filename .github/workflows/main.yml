@@ -1,5 +1,6 @@
 #.github/workflows/main.yml
 name: Scratch org for review
+on: push
 
 jobs:
   build:
