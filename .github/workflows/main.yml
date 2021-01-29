@@ -15,5 +15,8 @@ jobs:
       - name: sfdx push to org
         run: sfdx force:org:list
 
+      - name: ChangeDirectory
+        run: cd ..
+        
       - name: sfdx push to org
         run: sfdx force:source:push --targetusername gael.cangy@resilient-shark-47mjo0.com
