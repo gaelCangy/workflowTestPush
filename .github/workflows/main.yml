@@ -1,9 +1,9 @@
-name: SFDX Test Run on Push
+name: Push changes to resilient Shark
 
 on: [push]
 
 jobs:
-  test:
+  Push_to_Resilient_Shark_Org:
   
     runs-on: ubuntu-latest
     
@@ -12,9 +12,9 @@ jobs:
 
       - uses: sfdx-actions/setup-sfdx@v1
         with:
-          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}:${{secrets.CLIENTSECRETRESILIENTSHARK}}:${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
+          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
 
-      - name: sfdx push to org
+      - name: Push changes to resilient shark Org
         run: |
           ls -a
           sfdx force:org:list
