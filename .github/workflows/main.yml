@@ -19,4 +19,5 @@ jobs:
           ls -a
           sfdx force:org:list --all
           sfdx force:source:deploy -x manifest/package.xml
-          
+          sfdx force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org
+          sfdx force:org:open
