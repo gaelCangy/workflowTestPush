@@ -12,7 +12,7 @@ jobs:
 
       - uses: sfdx-actions/setup-sfdx@v1
         with:
-          sfdx-auth-url: force://$CLIENTIDRESILIENTSHARK::5Aep861wfm9ssIBS_.fn6UOXlmEa4gCMxAkaT1KAWW5Dnk19N9tNBqdhKZS7MIDXIzCenttYrhlBLnsIRVn9bNy@resilient-shark-47mjo0-dev-ed.my.salesforce.com
+          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::5Aep861wfm9ssIBS_.fn6UOXlmEa4gCMxAkaT1KAWW5Dnk19N9tNBqdhKZS7MIDXIzCenttYrhlBLnsIRVn9bNy@resilient-shark-47mjo0-dev-ed.my.salesforce.com
 
       - name: sfdx push to org
         run: |
