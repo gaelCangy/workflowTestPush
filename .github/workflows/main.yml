@@ -14,17 +14,24 @@ jobs:
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
 
-      - name: Test push Scratch Org
+      - name: Create Verification Scratch Org before pushing
         run: |
           sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
           sfdx force:org:open
           sfdx force:org:list --all
+         
+      - name: Push to Scratch Org and run all Tests
+        run: |
           sfdx force:source:push
           sfdx force:apex:test:run -u Verification-org --resultformat human
+
+      - name: Delete scratch Org
+        run: |
           sfdx force:org:delete -u Verification-org --noprompt
           
-      - name: Push changes to resilient shark Org
+      - name: Push changes to resilient shark Org and re-run all tests
         run: |          
           sfdx force:org:list --all
           sfdx force:source:deploy -x manifest/package.xml -u gael.cangy@resilient-shark-47mjo0.com
+          sfdx force:apex:test:run -u gael.cangy@resilient-shark-47mjo0.com --resultformat human
          
