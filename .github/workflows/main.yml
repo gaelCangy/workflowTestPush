@@ -16,11 +16,12 @@ jobs:
 
       - name: Test push Scratch Org
         run: |
-          sfdx force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org
+          sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
           sfdx force:org:open
           sfdx force:org:list --all
           sfdx force:source:push
           sfdx force:apex:test:run
+          sfdx force:org:delete -u Verification-org
           
       - name: Push changes to resilient shark Org
         run: |          
