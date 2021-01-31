@@ -14,10 +14,16 @@ jobs:
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
 
-      - name: Push changes to resilient shark Org
+      - name: Test push Scratch Org
         run: |
-          ls -a
-          sfdx force:org:list --all
-          sfdx force:source:deploy -x manifest/package.xml
           sfdx force:org:create -s -f config/project-scratch-def.json -a dreamhouse-org
           sfdx force:org:open
+          sfdx force:org:list --all
+          sfdx force:source:push
+          sfdx force:apex:test:run
+          
+      - name: Push changes to resilient shark Org
+        run: |          
+          sfdx force:org:list --all
+          sfdx force:source:deploy -x manifest/package.xml
+         
