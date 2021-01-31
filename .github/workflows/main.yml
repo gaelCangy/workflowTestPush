@@ -12,7 +12,7 @@ jobs:
 
       - uses: sfdx-actions/setup-sfdx@v1
         with:
-          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
+          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}:${{secrets.CLIENTSECRETRESILIENTSHARK}}:${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
 
       - name: sfdx push to org
         run: |
