@@ -20,8 +20,8 @@ jobs:
           sfdx force:org:open
           sfdx force:org:list --all
           sfdx force:source:push
-          sfdx force:apex:test:run
-          sfdx force:org:delete -u Verification-org
+          sfdx force:apex:test:run -u Verification-org --resultformat human
+          sfdx force:org:delete -u Verification-org --noprompt
           
       - name: Push changes to resilient shark Org
         run: |          
