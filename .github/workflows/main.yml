@@ -40,9 +40,16 @@ jobs:
       #     sfdx force:apex:test:run -u gael.cangy@resilient-shark-47mjo0.com --resultformat human
       #   #sfdx force:org:display --targetusername gael.cangy@resilient-shark-47mjo0.com
 
-      - name: testing sfdx plugin
+      - name: installing plugin sfdx plugin
         run: |
           sfdx plugins:install sfdx-git-delta --yes
+          
+
+        - name: accepting install sfdx plugin
+        run: |
+          y
+         
+        - name: using plugin
+        run: |
           echo "--- package.xml generated with added and modified metadata ---"
           cat package/package.xml
-         
