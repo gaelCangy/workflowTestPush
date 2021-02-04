@@ -30,7 +30,7 @@ jobs:
         run: |
           sfdx force:source:push
           sfdx force:apex:test:run -u Verification-org --resultformat human
-      continue-on-error: false
+        continue-on-error: false
 
       #STEP1.2: Delete scratch org
       - name: Delete scratch Org
