@@ -5,32 +5,8 @@ name: Push changes to resilient Shark org
 on: [push]
 
 jobs:
-#=======================================================================FIRST JOB=============================================================
-  Push_to_Resilient_Shark_Org:
-    
-    #setup environment
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@master
- 
-      #Initializes destination org to push
-      - uses: sfdx-actions/setup-sfdx@v1
-        with:
-          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
 
-            #=========================== STARTS BUILD TO DESTINATION ORG =====================  
-      - name: Push changes to resilient shark Org and re-run all tests
-        run: |          
-          sfdx force:org:list --all
-          sfdx force:source:deploy -x manifest/package.xml -u gael.cangy@resilient-shark-47mjo0.com
-          sfdx force:apex:test:run -u gael.cangy@resilient-shark-47mjo0.com --resultformat human
-        continue-on-error: false
-        #sfdx force:org:display --targetusername gael.cangy@resilient-shark-47mjo0.com
-
-
-
-#=======================================================================SECOND JOB=============================================================
+#=======================================================================First JOB=============================================================
   push_to_verification_org:
     needs: Push_to_Resilient_Shark_Org
     #setup environment
@@ -65,4 +41,29 @@ jobs:
         run: |
           sfdx force:org:delete -u Verification-org --noprompt
         continue-on-error: false
+
+
+#=======================================================================SECOND JOB=============================================================
+  Push_to_Resilient_Shark_Org:
+    
+    #setup environment
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@master
+ 
+      #Initializes destination org to push
+      - uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
+
+            #=========================== STARTS BUILD TO DESTINATION ORG =====================  
+      - name: Push changes to resilient shark Org and re-run all tests
+        run: |          
+          sfdx force:org:list --all
+          sfdx force:source:deploy -x manifest/package.xml -u gael.cangy@resilient-shark-47mjo0.com
+          sfdx force:apex:test:run -u gael.cangy@resilient-shark-47mjo0.com --resultformat human
+        continue-on-error: false
+        #sfdx force:org:display --targetusername gael.cangy@resilient-shark-47mjo0.com
+
 
