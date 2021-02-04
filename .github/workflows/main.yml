@@ -43,13 +43,12 @@ jobs:
       - name: installing plugin sfdx plugin
         run: |
           sfdx plugins:install sfdx-git-delta --yes
-          
-
-        - name: accepting install sfdx plugin
+         
+      - name: accepting install sfdx plugin
         run: |
           y
-         
-        - name: using plugin
+        
+      - name: using plugin
         run: |
           echo "--- package.xml generated with added and modified metadata ---"
           cat package/package.xml
