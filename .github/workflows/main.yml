@@ -4,7 +4,7 @@ name: Push changes to resilient Shark org
 on: [push]
 #Jobs start executing here
 jobs:
-  Push_to_Resilient_Shark_Org:
+  push_to_verification_org:
     #setup environment
     runs-on: ubuntu-latest
     
@@ -25,7 +25,7 @@ jobs:
           sfdx force:org:list --all
         continue-on-error: false
 
-      #STEP1.1: Usescratch org as verification org
+      #STEP1.1: Use scratch org as verification org before pushing to destination org
       - name: Push to Scratch Org and run all Tests
         run: |
           sfdx force:source:push
@@ -37,8 +37,22 @@ jobs:
         run: |
           sfdx force:org:delete -u Verification-org --noprompt
         continue-on-error: false
+    
 
-      #=========================== STARTS BUILD TO DESTINATION ORG =====================  
+jobs:
+  Push_to_Resilient_Shark_Org:
+    #setup environment
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@master
+ 
+      #Initializes destination org to push
+      - uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
+
+            #=========================== STARTS BUILD TO DESTINATION ORG =====================  
       - name: Push changes to resilient shark Org and re-run all tests
         run: |          
           sfdx force:org:list --all
