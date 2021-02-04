@@ -42,7 +42,7 @@ jobs:
 
       - name: testing sfdx plugin
         run: |
-          sgd:source:delta
+          sfdx plugins:install sfdx-git-delta y
           echo "--- package.xml generated with added and modified metadata ---"
           cat package/package.xml
          
