@@ -1,5 +1,6 @@
 name: Push changes to resilient Shark org
 #Will start workflow when a new commit is pushed to online repo
+
 on: [push]
 #Jobs start executing here
 jobs:
@@ -38,4 +39,10 @@ jobs:
           sfdx force:source:deploy -x manifest/package.xml -u gael.cangy@resilient-shark-47mjo0.com
           sfdx force:apex:test:run -u gael.cangy@resilient-shark-47mjo0.com --resultformat human
         #sfdx force:org:display --targetusername gael.cangy@resilient-shark-47mjo0.com
+
+      - name: testing sfdx plugin
+        run: |
+          sfdx plugins:install sfdx-git-delta
+          echo "--- package.xml generated with added and modified metadata ---"
+          cat package/package.xml
          
