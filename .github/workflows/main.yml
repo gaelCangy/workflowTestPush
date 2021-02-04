@@ -14,9 +14,11 @@ jobs:
       - uses: sfdx-actions/setup-sfdx@v1
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
-     - uses: borales/actions-yarn@v2.0.0
+    
+      - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install # will run `yarn install` command
+          
       # #========================= START SCRATCH ORG ====================================
       # #STEP1: Creates scratch org
       # - name: Create Verification Scratch Org before pushing
