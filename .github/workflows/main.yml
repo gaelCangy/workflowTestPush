@@ -5,7 +5,7 @@ name: Push changes to resilient Shark org
 on: [push]
 
 jobs:
-#=======================================================================SECOND JOB=============================================================
+#=======================================================================FIRST JOB=============================================================
   Push_to_Resilient_Shark_Org:
     
     #setup environment
@@ -29,8 +29,8 @@ jobs:
         #sfdx force:org:display --targetusername gael.cangy@resilient-shark-47mjo0.com
 
 
-        
-#=======================================================================FIRST JOB=============================================================
+
+#=======================================================================SECOND JOB=============================================================
   push_to_verification_org:
     needs: Push_to_Resilient_Shark_Org
     #setup environment
@@ -44,7 +44,7 @@ jobs:
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
 
-      #========================= START SCRATCH ORG ====================================
+      #============================= START SCRATCH ORG ====================================
       #STEP1: Creates scratch org
       - name: Create Verification Scratch Org before pushing
         run: |
