@@ -42,11 +42,9 @@ jobs:
 
       - name: installing plugin sfdx plugin
         run: |
-          sfdx plugins:install sfdx-git-delta
-          
-          echo "y"
+          echo y | sfdx plugins:install sfdx-git-delta
         
       - name: using plugin
         run: |
           echo "--- package.xml generated with added and modified metadata ---"
-          cat package/package.xml
+          cat manifest/package.xml
