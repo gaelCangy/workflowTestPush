@@ -46,7 +46,7 @@ jobs:
   Push_to_Resilient_Shark_Org:
 
     #Requires first job to succeed before starting second one
-    needs: Push_to_Resilient_Shark_Org
+    needs: push_to_verification_org
 
     #setup environment
     runs-on: ubuntu-latest
