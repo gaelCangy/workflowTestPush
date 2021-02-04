@@ -1,8 +1,9 @@
 name: Push changes to resilient Shark org
 #Will start workflow when a new commit is pushed to online repo
 
-on: [push]
 #Jobs start executing here
+on: [push]
+
 jobs:
 #=======================================================================FIRST JOB=============================================================
   push_to_verification_org:
@@ -41,6 +42,7 @@ jobs:
 
 #=======================================================================SECOND JOB=============================================================
   Push_to_Resilient_Shark_Org:
+  needs: push_to_verification_org
     #setup environment
     runs-on: ubuntu-latest
     
