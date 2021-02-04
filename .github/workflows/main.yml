@@ -8,7 +8,6 @@ jobs:
 
   #=======================================================================SECOND JOB=============================================================
   Push_to_Resilient_Shark_Org:
-    #needs: push_to_verification_org
 
     #setup environment
     runs-on: ubuntu-latest
@@ -33,6 +32,8 @@ jobs:
 #=======================================================================FIRST JOB=============================================================
   push_to_verification_org:
     #setup environment
+    needs: Push_to_Resilient_Shark_Org
+
     runs-on: ubuntu-latest
     
     steps:
