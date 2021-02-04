@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # - uses: actions/checkout@master
-      # #Initializes destination org to push
-      # - uses: sfdx-actions/setup-sfdx@v1
-      #   with:
-      #     sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
+      - uses: actions/checkout@master
+      #Initializes destination org to push
+      - uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
      
       # #========================= START SCRATCH ORG ====================================
       # #STEP1: Creates scratch org
