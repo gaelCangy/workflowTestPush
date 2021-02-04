@@ -23,8 +23,8 @@ jobs:
       #STEP1: Creates scratch org
       - name: Create Verification Scratch Org before pushing
         run: |
-        sfdx force:org:list --all
-        sfdx force:limits:api:display -u ${{secrets.INSTANCEURLRESILIENTSHARK}}
+          sfdx force:org:list --all
+          sfdx force:limits:api:display -u ${{secrets.INSTANCEURLRESILIENTSHARK}}
           sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
           sfdx force:org:open
           sfdx force:org:list --all
