@@ -1,12 +1,10 @@
+
 name: Push changes to resilient Shark org
 #Will start workflow when a new commit is pushed to online repo
-
 #Jobs start executing here
 on: [push]
-
 jobs:
-
-#=======================================================================First JOB=============================================================
+#=======================================================================FIRST JOB=============================================================
   push_to_verification_org:
     #setup environment
     runs-on: ubuntu-latest
@@ -18,46 +16,32 @@ jobs:
       - uses: sfdx-actions/setup-sfdx@v1
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
-
-      #============================= START SCRATCH ORG ====================================
-      - name: set default devhub org
-        run: |
-          sfdx force:config:set -h
-
+      #========================= START SCRATCH ORG ====================================
       #STEP1: Creates scratch org
       - name: Create Verification Scratch Org before pushing
-        run: |          
-          sfdx force:org:list --all
-
-          sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org2
+        run: |
+          sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
           sfdx force:org:open
-
           sfdx force:org:list --all
         continue-on-error: false
-
       #STEP1.1: Use scratch org as verification org before pushing to destination org
       - name: Push to Scratch Org and run all Tests
         run: |
           sfdx force:source:push
           sfdx force:apex:test:run -u Verification-org --resultformat human
         continue-on-error: false
-
       #STEP1.2: Delete scratch org
       - name: Delete scratch Org
         run: |
           sfdx force:org:delete -u Verification-org --noprompt
         continue-on-error: false
 
-
 #=======================================================================SECOND JOB=============================================================
   Push_to_Resilient_Shark_Org:
-
-    #Requires first job to succeed before starting second one
     needs: push_to_verification_org
-
     #setup environment
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@master
  
@@ -65,7 +49,6 @@ jobs:
       - uses: sfdx-actions/setup-sfdx@v1
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
-
             #=========================== STARTS BUILD TO DESTINATION ORG =====================  
       - name: Push changes to resilient shark Org and re-run all tests
         run: |          
@@ -74,5 +57,3 @@ jobs:
           sfdx force:apex:test:run -u gael.cangy@resilient-shark-47mjo0.com --resultformat human
         continue-on-error: false
         #sfdx force:org:display --targetusername gael.cangy@resilient-shark-47mjo0.com
-
-
