@@ -26,7 +26,7 @@ jobs:
           sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
           sfdx force:org:open
           sfdx force:org:list --all
-        continue-on-error: false
+        continue-on-error: true
 
       #STEP1.1: Use scratch org as verification org before pushing to destination org
       - name: Push to Scratch Org and run all Tests
@@ -38,7 +38,7 @@ jobs:
       - name: Delete scratch Org
         run: |
           sfdx force:org:delete -u Verification-org --noprompt
-        continue-on-error: false
+        continue-on-error: true
 
 #=======================================================================SECOND JOB=============================================================
   Push_to_Resilient_Shark_Org:
