@@ -22,7 +22,7 @@ jobs:
       #============================= START SCRATCH ORG ====================================
       - name: set default devhub org
         run: |
-          sfdx config:set defaultdevhubusername=gael.cangy@resilient-shark-47mjo0.com --global
+          sfdx force:config:set defaultdevhubusername=SFDX-ENV --global
 
       #STEP1: Creates scratch org
       - name: Create Verification Scratch Org before pushing
