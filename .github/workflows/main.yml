@@ -43,10 +43,7 @@ jobs:
       - name: installing plugin sfdx plugin
         run: |
           sfdx plugins:install sfdx-git-delta
-                   
-      - name: accepting install sfdx plugin
-        run: |
-          yes
+           echo "y"
         
       - name: using plugin
         run: |
