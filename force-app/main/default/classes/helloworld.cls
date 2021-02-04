@@ -15,7 +15,6 @@ public without sharing class helloworld {
     public static void helloworld(){
         System.debug('hello world');
         //trial 1 2 3 4 5
-        fakeobject__c fk = new fakeObject__c();
-        
+       
     }
 }
