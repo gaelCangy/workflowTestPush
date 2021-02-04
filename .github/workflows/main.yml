@@ -12,14 +12,14 @@ jobs:
       - uses: actions/checkout@master
 
       - name: 'Build and Deploy'
-              uses: tiagonnascimento/sfdx-orgdev-build-deploy@v2
-              with:
-                type: 'production'               
-                client_id: ${{secrets.CLIENTIDRESILIENTSHARK}}
-                username: gael.cangy@resilient-shark-47mjo0.com
-                checkonly: false
-                deploy_wait_time: '10'
-                manifest_path: manifest/package.xml
+        uses: tiagonnascimento/sfdx-orgdev-build-deploy@v2
+        with:
+          type: 'production'               
+          client_id: ${{secrets.CLIENTIDRESILIENTSHARK}}
+          username: gael.cangy@resilient-shark-47mjo0.com
+          checkonly: false
+          deploy_wait_time: '10'
+          manifest_path: manifest/package.xml
 
       # #Initializes destination org to push
       # - uses: sfdx-actions/setup-sfdx@v1
