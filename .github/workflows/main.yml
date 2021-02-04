@@ -20,15 +20,16 @@ jobs:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
 
       #============================= START SCRATCH ORG ====================================
+      - name: set default devhub org
+        run: |
+          sfdx config:set defaultdevhubusername=gael.cangy@resilient-shark-47mjo0.com --global
+
       #STEP1: Creates scratch org
       - name: Create Verification Scratch Org before pushing
-        run: |
-          sfdx config:set defaultdevhubusername=gael.cangy@resilient-shark-47mjo0.com
-
+        run: |          
           sfdx force:org:list --all
-          sfdx force:limits:api:display -u gael.cangy@resilient-shark-47mjo0.com
 
-          sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
+          sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org2
           sfdx force:org:open
 
           sfdx force:org:list --all
