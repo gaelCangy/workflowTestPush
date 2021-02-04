@@ -25,7 +25,7 @@ jobs:
         run: |
           sfdx force:org:list --all
           sfdx force:limits:api:display -u gael.cangy@resilient-shark-47mjo0.com
-          force:org:delete --noprompt
+          sfdx force:org:delete --noprompt
           sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
           sfdx force:org:open
           sfdx force:org:list --all
