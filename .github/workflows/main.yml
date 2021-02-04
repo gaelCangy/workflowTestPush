@@ -22,9 +22,8 @@ jobs:
       #============================= START SCRATCH ORG ====================================
       - name: set default devhub org
         run: |
-          sfdx force:config:set defaultdevhubusername=SFDX-ENV --global
-          sfdx force:org:create -v SFDX-ENV -f config/project-scratch-def.json -a ciScratchOrg -s --wait 10 --durationdays 1
-          
+          sfdx force:config:set -h
+
       #STEP1: Creates scratch org
       - name: Create Verification Scratch Org before pushing
         run: |          
