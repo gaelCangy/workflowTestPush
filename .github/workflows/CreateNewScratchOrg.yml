@@ -43,7 +43,7 @@ jobs:
       - name: Create Scratch Org before pushing
         run: |
           sfdx force:limits:api:display -u ${{secrets.USERNAME_KOALA}}
-          sfdx force:org:create -s orgName=${{ github.event.inputs.Scratch_Org_Name }} edition=Developer -a ${{ github.event.inputs.Scratch_Org_Name }} --durationdays 30
+          sfdx force:org:create -s orgName=${{ github.event.inputs.Scratch_Org_Name }}-Build-#${{ github.run_number }} edition=Developer -a ${{ github.event.inputs.Scratch_Org_Name }} --durationdays 30
           sfdx force:org:open
           sfdx force:org:list --all
         #Do not launch next step if could not create Scratch org

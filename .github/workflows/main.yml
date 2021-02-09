@@ -7,9 +7,9 @@ name: WORKFLOW_PUSH_TO_RESILIENT_SHARK_ORG
 #Will start workflow when a new commit is pushed to online repo OR
 #workflow_dispatch ==> allows for workflow to be launched manually
 on: 
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
 
   workflow_dispatch:
     inputs:
@@ -87,6 +87,4 @@ jobs:
           sfdx force:apex:test:run -u ${{secrets.TARGET_USERNAM}} --resultformat human
         #Do not launch next step on fail  
         continue-on-error: false
-
-      - name: Output Run Number
-        run: echo ${{ github.run_number }}
+     
