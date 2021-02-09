@@ -1,14 +1,17 @@
 
 name: Push changes to resilient Shark org
-#Will start workflow when a new commit is pushed to online repo
-#Jobs start executing here
+
+#Will start workflow when a new commit is pushed to online repo OR
+#workflow_dispatch ==> allows for workflow to be launched manually
 on: [push,workflow_dispatch]
 
+#Jobs start executing here
 jobs:
 
 #=======================================================================FIRST JOB=============================================================
   push_to_verification_org:
-    #setup environment
+
+    #setup environment OS
     runs-on: ubuntu-latest
     
     steps:
@@ -23,6 +26,7 @@ jobs:
       #STEP1: Creates scratch org
       - name: Create Verification Scratch Org before pushing
         run: |
+          sfdx force:limits:api:display -h
           sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
           sfdx force:org:open
           sfdx force:org:list --all
@@ -43,10 +47,10 @@ jobs:
 #=======================================================================SECOND JOB=============================================================
   Push_to_Resilient_Shark_Org:
 
-    #Waits for previous job to finish successfully before executing this job
-    needs: push_to_verification_org
+    #Waits for listed jobs to finish successfully before executing this job
+    needs: [push_to_verification_org]
 
-    #setup environment
+    #setup environment OS
     runs-on: ubuntu-latest
 
     steps:
