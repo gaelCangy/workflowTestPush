@@ -1,4 +1,4 @@
-name: WORKFLOW_VERIFY_BEFORE_MERGE
+name: VERIFY_Branch_BEFORE_MERGE
 
 #Will start workflow when a new commit is pushed to online repo OR
 #workflow_dispatch ==> allows for workflow to be launched manually
