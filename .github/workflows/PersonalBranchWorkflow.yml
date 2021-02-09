@@ -4,15 +4,9 @@ name: VERIFY_Branch_BEFORE_MERGE
 #if the build is done correctly before doing the merge with the original dev branch on github
 
 
-#Will start workflow when a new commit is pushed to online repo OR
 #workflow_dispatch ==> allows for workflow to be launched manually
-on:
-  workflow_dispatch:
-    inputs:
-          name:
-            description: 'Person to greet'
-            required: true
-            default: 'Mona the Octocat'
+on: [workflow_dispatch]
+    
 
 #Jobs start executing here
 jobs:
