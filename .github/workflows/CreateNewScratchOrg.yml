@@ -40,8 +40,8 @@ jobs:
       #RUN this command to get sfdx-auth-url ==> sfdx force:org:display --targetusername <username> --verbose
       #sfdx-auth-url FORMAT ====> force://<refreshToken>@<instanceUrl> or force://<clientId>:<clientSecret>:<refreshToken>@<instanceUrl>
       - uses: sfdx-actions/setup-sfdx@v1
-        with:
-          if: ${{ github.event.inputs.Dev_Hub == 'KOALA' }}
+        if: ${{ github.event.inputs.Dev_Hub == 'KOALA' }}
+        with:          
           sfdx-auth-url: force://${{secrets.CLIENTID_KOALA}}::${{secrets.REFRESH_TOKEN_KOALA}}@${{secrets.INSTANCE_URL_KOALA}}
 
       #========================= START SCRATCH ORG ====================================
