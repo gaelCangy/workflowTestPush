@@ -13,6 +13,11 @@ on:
             description: 'New Branch Name'
             required: true
             default: 'DevPerso'
+          
+          Dev_Hub:
+            description: 'Choose dev hub'
+            required: true
+            default: 'KOALA'
 
           Scratch_Org_Name:
             description: 'New ScratchOrg alias Name'
@@ -36,6 +41,7 @@ jobs:
       #sfdx-auth-url FORMAT ====> force://<refreshToken>@<instanceUrl> or force://<clientId>:<clientSecret>:<refreshToken>@<instanceUrl>
       - uses: sfdx-actions/setup-sfdx@v1
         with:
+          if: ${{ github.event.inputs.Dev_Hub == 'KOALA' }}
           sfdx-auth-url: force://${{secrets.CLIENTID_KOALA}}::${{secrets.REFRESH_TOKEN_KOALA}}@${{secrets.INSTANCE_URL_KOALA}}
 
       #========================= START SCRATCH ORG ====================================
