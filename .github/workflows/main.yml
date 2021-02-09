@@ -2,7 +2,7 @@
 name: Push changes to resilient Shark org
 #Will start workflow when a new commit is pushed to online repo
 #Jobs start executing here
-on: [push]
+on: [push,workflow_dispatch]
 
 jobs:
 
