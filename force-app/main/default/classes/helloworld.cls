@@ -3,7 +3,7 @@
  * @Description        : 
  * @Author             : abdool.miskin@sc-mauritius.com
  * @Group              : 
- * @Last Modified On   : 02-08-2021
+ * @Last Modified On   : 02-09-2021
  * @Modification Log   : 
  *===================================================================================
  * Ver         Date                           Author                  Modification
@@ -15,6 +15,6 @@ public without sharing class helloworld {
     public static void helloworld(){
         System.debug('hello world');
         //trial 1 2 3 4 5 6
-       
+        fake__c f = new fake__c();
     }
 }
