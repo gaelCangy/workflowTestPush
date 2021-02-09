@@ -3,8 +3,18 @@ name: WORKFLOW_PUSH_TO_RESILIENT_SHARK_ORG
 
 #Will start workflow when a new commit is pushed to online repo OR
 #workflow_dispatch ==> allows for workflow to be launched manually
-on: [push,workflow_dispatch]
+on: 
+  push:
+    branches:
+      - main
 
+  workflow_dispatch:
+    inputs:
+          name:
+            description: 'Person to greet'
+            required: true
+            default: 'Mona the Octocat'
+            
 #Jobs start executing here
 jobs:
 
