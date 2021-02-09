@@ -52,7 +52,7 @@ jobs:
   PUSH_TO_RESILIENT_SHARK_ORG:
 
     #Waits for listed jobs to finish successfully before executing this job
-    needs: [push_to_verification_org]
+    needs: [CREATE_AND_PUSH_TO_VERIFICATION_SCRATCHORG]
 
     #setup environment OS
     runs-on: ubuntu-latest
