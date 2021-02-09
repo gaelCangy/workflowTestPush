@@ -1,4 +1,4 @@
-name: WORKFLOW_PUSH_TO_RESILIENT_SHARK_ORG
+name: WORKFLOW_VERIFY_BEFORE_MERGE
 
 #Will start workflow when a new commit is pushed to online repo OR
 #workflow_dispatch ==> allows for workflow to be launched manually
