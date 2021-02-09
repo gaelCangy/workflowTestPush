@@ -1,36 +1,48 @@
-# This is a basic workflow to help you get started with Actions
+name: WORKFLOW_PUSH_TO_RESILIENT_SHARK_ORG
 
-name: CI
+#Will start workflow when a new commit is pushed to online repo OR
+#workflow_dispatch ==> allows for workflow to be launched manually
+on: [workflow_dispatch]
 
-# Controls when the action will run. 
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+#Jobs start executing here
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+
+#=======================================================================FIRST JOB=============================================================
+  CREATE_AND_PUSH_TO_VERIFICATION_SCRATCHORG:
+  
+    #setup environment OS
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@master
+ 
+      #Uses sfdx-actions as a library on github actions allowing us to use sfdx commands like in local
+      #RUN this command to get sfdx-auth-url ==> sfdx force:org:display --targetusername <username>
+      #sfdx-auth-url FORMAT ====> force://<refreshToken>@<instanceUrl> or force://<clientId>:<clientSecret>:<refreshToken>@<instanceUrl>
+      - uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      #========================= START SCRATCH ORG ====================================
+      #STEP1: Creates scratch org
+      - name: Create Verification Scratch Org before pushing
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          sfdx force:limits:api:display -u ${{secrets.TARGET_USERNAM}}
+          sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
+          sfdx force:org:open
+          sfdx force:org:list --all
+        #Do not launch next step if could not create Scratch org
+        continue-on-error: false
+
+      #STEP1.1: Use scratch org as verification org before pushing to destination org
+      - name: Push to Scratch Org and run all Tests
+        run: |
+          sfdx force:source:push
+          sfdx force:apex:test:run -u Verification-org --resultformat human
+        #If push fails launch next step and delete scratch org 
+        continue-on-error: true
+        
+      #STEP1.2: Delete scratch org
+      - name: Delete scratch Org
+        run: |
+          sfdx force:org:delete -u Verification-org --noprompt
