@@ -1,5 +1,5 @@
 
-name: Push changes to resilient Shark org
+name: WORKFLOW_PUSH_TO_RESILIENT_SHARK_ORG
 
 #Will start workflow when a new commit is pushed to online repo OR
 #workflow_dispatch ==> allows for workflow to be launched manually
@@ -17,7 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
  
-      #Initializes destination org to push
+      #Uses sfdx-actions as a library on github actions allowing us to use sfdx commands like in local
+      #RUN this command to get sfdx-auth-url ==> sfdx force:org:display --targetusername <username>
+      #sfdx-auth-url FORMAT ====> force://<refreshToken>@<instanceUrl> or force://<clientId>:<clientSecret>:<refreshToken>@<instanceUrl>
       - uses: sfdx-actions/setup-sfdx@v1
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
@@ -26,10 +28,11 @@ jobs:
       #STEP1: Creates scratch org
       - name: Create Verification Scratch Org before pushing
         run: |
-          sfdx force:limits:api:display -u deas
+          sfdx force:limits:api:display -u ${{secrets.TARGET_USERNAM}}
           sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
           sfdx force:org:open
           sfdx force:org:list --all
+        #Do not launch next step if could not create Scratch org
         continue-on-error: false
 
       #STEP1.1: Use scratch org as verification org before pushing to destination org
@@ -37,13 +40,13 @@ jobs:
         run: |
           sfdx force:source:push
           sfdx force:apex:test:run -u Verification-org --resultformat human
+        #If push fails launch next step and delete scratch org 
         continue-on-error: true
         
       #STEP1.2: Delete scratch org
       - name: Delete scratch Org
         run: |
           sfdx force:org:delete -u Verification-org --noprompt
-        continue-on-error: true
 
 #=======================================================================SECOND JOB=============================================================
   Push_to_Resilient_Shark_Org:
@@ -57,7 +60,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
  
-      #Initializes destination org to push
+      #Uses sfdx-actions as a library on github actions allowing us to use sfdx commands like in local
+      #RUN this command to get sfdx-auth-url ==> sfdx force:org:display --targetusername <username>
+      #sfdx-auth-url FORMAT ====> force://<refreshToken>@<instanceUrl> or force://<clientId>:<clientSecret>:<refreshToken>@<instanceUrl>
       - uses: sfdx-actions/setup-sfdx@v1
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
@@ -68,4 +73,5 @@ jobs:
           sfdx force:org:list --all
           sfdx force:source:deploy -x manifest/package.xml -u ${{secrets.TARGET_USERNAM}}
           sfdx force:apex:test:run -u ${{secrets.TARGET_USERNAM}} --resultformat human
+        #Do not launch next step on fail  
         continue-on-error: false
