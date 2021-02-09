@@ -44,11 +44,21 @@ jobs:
         with:          
           sfdx-auth-url: force://${{secrets.CLIENTID_KOALA}}::${{secrets.REFRESH_TOKEN_KOALA}}@${{secrets.INSTANCE_URL_KOALA}}
 
+        if: ${{ github.event.inputs.Dev_Hub == 'SHARK' }}
+        with:
+          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
+
+          
       #========================= START SCRATCH ORG ====================================
       #STEP1: Creates scratch org
       - name: Create Scratch Org before pushing
         run: |
-          sfdx force:limits:api:display -u ${{secrets.USERNAME_KOALA}}
+          if ${{ github.event.inputs.Dev_Hub == 'KOALA' }} ; then
+              sfdx force:limits:api:display -u ${{secrets.USERNAME_KOALA}}
+          else
+              sfdx force:limits:api:display -u ${{secrets.TARGET_USERNAM}}
+          fi
+
           sfdx force:org:create -s orgName=${{ github.event.inputs.Scratch_Org_Name }}-Build-#${{ github.run_number }} edition=Developer -a ${{ github.event.inputs.Scratch_Org_Name }} --durationdays 30
           sfdx force:org:open
           sfdx force:org:list --all
