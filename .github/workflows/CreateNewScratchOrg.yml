@@ -11,9 +11,9 @@ on:
             default: 'DevPerso'
 
           Scratch_Org_Name:
-            description: 'New ScratchOrg Name'
+            description: 'New ScratchOrg alias Name'
             required: true
-            default: 'scrNew'
+            default: 'scrNew-org'
 
 #Jobs start executing here
 jobs:
@@ -39,7 +39,7 @@ jobs:
       - name: Create Scratch Org before pushing
         run: |
           sfdx force:limits:api:display -u ${{secrets.TARGET_USERNAM}}
-          sfdx force:org:create -s -f config/project-scratch-def.json -a ${{ github.event.inputs.Scratch_Org_Name }}
+          sfdx force:org:create edition=Developer -a ${{ github.event.inputs.Scratch_Org_Name }} --durationdays 30
           sfdx force:org:open
           sfdx force:org:list --all
         #Do not launch next step if could not create Scratch org
