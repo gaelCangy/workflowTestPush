@@ -39,6 +39,7 @@ jobs:
       #STEP1.2: Delete scratch org
       - name: Delete scratch Org
         run: |
+          sfdx force:org:display -u ${{ github.event.inputs.Scratch_Org_Name }} --verbose
           sfdx force:limits:api:display -u ${{secrets.USERNAME_KOALA}}          
           sfdx force:org:list --all
           sfdx force:org:delete -u ${{ github.event.inputs.Scratch_Org_Name }} --noprompt
