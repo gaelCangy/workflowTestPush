@@ -1,9 +1,18 @@
-
 name: WORKFLOW_PUSH_TO_RESILIENT_SHARK_ORG
 
 #Will start workflow when a new commit is pushed to online repo OR
 #workflow_dispatch ==> allows for workflow to be launched manually
-on: [push,workflow_dispatch]
+on: 
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+    inputs:
+          name:
+            description: 'Person to greet'
+            required: true
+            default: 'Mona the Octocat'
 
 #Jobs start executing here
 jobs:
@@ -24,30 +33,29 @@ jobs:
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
 
-      # #========================= START SCRATCH ORG ====================================
-      # #STEP1: Creates scratch org
-      # - name: Create Verification Scratch Org before pushing
-      #   run: |
-      #     sfdx force:limits:api:display -u ${{secrets.TARGET_USERNAM}}
-      #     sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
-      #     sfdx force:org:open
-      #     sfdx force:org:list --all
-      #   #Do not launch next step if could not create Scratch org
-      #   continue-on-error: false
+      #========================= START SCRATCH ORG ====================================
+      #STEP1: Creates scratch org
+      - name: Create Verification Scratch Org before pushing
+        run: |
+          sfdx force:limits:api:display -u ${{secrets.TARGET_USERNAM}}
+          sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
+          sfdx force:org:open
+          sfdx force:org:list --all
+        #Do not launch next step if could not create Scratch org
+        continue-on-error: false
 
-      # #STEP1.1: Use scratch org as verification org before pushing to destination org
-      # - name: Push to Scratch Org and run all Tests
-      #   run: |
-      #     sfdx force:source:push
-      #     sfdx force:apex:test:run -u Verification-org --resultformat human
-      #   #If push fails launch next step and delete scratch org 
-      #   continue-on-error: true
+      #STEP1.1: Use scratch org as verification org before pushing to destination org
+      - name: Push to Scratch Org and run all Tests
+        run: |
+          sfdx force:source:push
+          sfdx force:apex:test:run -u Verification-org --resultformat human
+        #If push fails launch next step and delete scratch org 
+        continue-on-error: true
         
-      # #STEP1.2: Delete scratch org
-      # - name: Delete scratch Org
-      #   run: |
-      #     sfdx force:org:delete -u Verification-org --noprompt
-
+      #STEP1.2: Delete scratch org
+      - name: Delete scratch Org
+        run: |
+          sfdx force:org:delete -u Verification-org --noprompt
 #=======================================================================SECOND JOB=============================================================
   PUSH_TO_RESILIENT_SHARK_ORG:
 
