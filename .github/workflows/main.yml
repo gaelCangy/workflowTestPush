@@ -1,4 +1,8 @@
 name: WORKFLOW_PUSH_TO_RESILIENT_SHARK_ORG
+#Description:
+#Used to push to the DEV ORG/ PREPROD and verifies if metadata is correct using 
+#a scratch org as intermidiate org then deletes it if everything is okay
+
 
 #Will start workflow when a new commit is pushed to online repo OR
 #workflow_dispatch ==> allows for workflow to be launched manually

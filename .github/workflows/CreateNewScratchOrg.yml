@@ -1,7 +1,11 @@
 name: Create_New_ScratchOrg_for_NewBranch
+#Description:
+#Purpose is to create a scratch org automatically for the developers instead of having them create it manually.
+#Will also push all the meta data from the dev branch to their scratch org
 
-#Will start workflow when a new commit is pushed to online repo OR
+
 #workflow_dispatch ==> allows for workflow to be launched manually
+#Inputs: ==> allows user to insert values to be used lower for any puproses like variables
 on:
   workflow_dispatch:
     inputs:

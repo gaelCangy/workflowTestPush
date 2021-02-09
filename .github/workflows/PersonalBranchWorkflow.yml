@@ -1,4 +1,8 @@
 name: VERIFY_Branch_BEFORE_MERGE
+#Description:
+#Build is donne manually on the branch created to develop the ticket to verify 
+#if the build is done correctly before doing the merge with the original dev branch on github
+
 
 #Will start workflow when a new commit is pushed to online repo OR
 #workflow_dispatch ==> allows for workflow to be launched manually
