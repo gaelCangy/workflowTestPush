@@ -26,11 +26,11 @@ jobs:
       #STEP1: Creates scratch org
       - name: Create Verification Scratch Org before pushing
         run: |
-          sfdx force:limits:api:display -u ${{secrets.TARGET_USERNAM}}
+          sfdx force:limits:api:display -u deas
           sfdx force:org:create -s -f config/project-scratch-def.json -a Verification-org
           sfdx force:org:open
           sfdx force:org:list --all
-        continue-on-error: true
+        continue-on-error: false
 
       #STEP1.1: Use scratch org as verification org before pushing to destination org
       - name: Push to Scratch Org and run all Tests
