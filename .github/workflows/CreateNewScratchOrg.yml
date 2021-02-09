@@ -28,17 +28,17 @@ jobs:
       - uses: actions/checkout@master
  
       #Uses sfdx-actions as a library on github actions allowing us to use sfdx commands like in local
-      #RUN this command to get sfdx-auth-url ==> sfdx force:org:display --targetusername <username>
+      #RUN this command to get sfdx-auth-url ==> sfdx force:org:display --targetusername <username> --verbose
       #sfdx-auth-url FORMAT ====> force://<refreshToken>@<instanceUrl> or force://<clientId>:<clientSecret>:<refreshToken>@<instanceUrl>
       - uses: sfdx-actions/setup-sfdx@v1
         with:
-          sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
+          sfdx-auth-url: force://${{secrets.CLIENTID_KOALA}}::${{secrets.REFRESH_TOKEN_KOALA}}@${{secrets.INSTANCE_URL_KOALA}}
 
       #========================= START SCRATCH ORG ====================================
       #STEP1: Creates scratch org
       - name: Create Scratch Org before pushing
         run: |
-          sfdx force:limits:api:display -u ${{secrets.TARGET_USERNAM}}
+          sfdx force:limits:api:display -u ${{secrets.USERNAME_KOALA}}
           sfdx force:org:create edition=Developer -a ${{ github.event.inputs.Scratch_Org_Name }} --durationdays 30
           sfdx force:org:open
           sfdx force:org:list --all
