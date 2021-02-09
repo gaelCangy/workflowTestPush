@@ -43,7 +43,8 @@ jobs:
         if: ${{ github.event.inputs.Dev_Hub == 'KOALA' }}
         with:          
           sfdx-auth-url: force://${{secrets.CLIENTID_KOALA}}::${{secrets.REFRESH_TOKEN_KOALA}}@${{secrets.INSTANCE_URL_KOALA}}
-
+          
+      - uses: sfdx-actions/setup-sfdx@v1
         if: ${{ github.event.inputs.Dev_Hub == 'SHARK' }}
         with:
           sfdx-auth-url: force://${{secrets.CLIENTIDRESILIENTSHARK}}::${{secrets.REFRESHTOKENRESILIENTSHARK}}@${{secrets.INSTANCEURLRESILIENTSHARK}}
