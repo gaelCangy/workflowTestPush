@@ -75,4 +75,4 @@ jobs:
        #STEP1.2: Push org data for developer
       - name: Push org data for developer
         run: |
-          sfdx force:data:tree:import -p data/leadData.json
+          sfdx force:data:tree:import -f data/Account.json
