@@ -71,3 +71,8 @@ jobs:
         run: |
           sfdx force:source:push
           sfdx force:apex:test:run -u ${{ github.event.inputs.Scratch_Org_Name }} --resultformat human
+
+       #STEP1.2: Push org data for developer
+      - name: Push org data for developer
+        run: |
+          sfdx force:data:tree:import -p data/leadData.json

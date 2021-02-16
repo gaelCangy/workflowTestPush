@@ -1,0 +1,31 @@
+{
+	"leaddata": {
+		"record": [
+			{
+				"FirstName": "Veera",
+				"LastName": "Vinnu",
+				"Phone": "8008997654",
+				"Email": "veerav@gmail.com"
+			},
+			{
+				"FirstName": "Beera",
+				"LastName": "Binnu",
+				"Phone": "9898989898",
+				"Email": "beeru@gmail.com"
+			},
+			{
+				"FirstName": "Ceera",
+				"LastName": "Cinnu",
+				"Phone": "8989898989",
+				"Email": "ceera@gmail.com"
+			},
+			{
+				"FirstName": "Deera",
+				"LastName": "Dinnu",
+				"Phone": "7878787878",
+				"Email": "deera@gmail.com"
+			}
+		]
+
+	}
+}
